@@ -10,7 +10,7 @@ data$datetime <- paste(data$Date,data$Time)
 data$datetime <- strptime(data$datetime,"%d/%m/%Y %H:%M:%S")
 
 ##create plots as png and close graphics device when finished
-png("plot4.png",pointsize=11)
+png("plot4.png",type="cairo")    ##type="cairo" to be able to adjust line width to below 1
 par("mfcol"=c(2,2))
 with(data,plot(datetime,Global_active_power,"l",xlab="",ylab="Global Active Power"))
 with(data,{
@@ -18,9 +18,9 @@ with(data,{
   lines(datetime,Sub_metering_2,"l",col="red")
   lines(datetime,Sub_metering_3,"l",col="blue")
   })
-legend("topright",lwd=1,col=c("black","red","blue"),legend=names(data[,7:9]),bty="n")
+legend("topright",lwd=1,col=c("black","red","blue"),legend=names(data[,7:9]),bty="n",cex=0.9) ##bty="n" to remove line around legend, cex=0.9 to adjust legend size 
 with(data,{
-  plot(datetime,Voltage,"l")
-  plot(datetime,Global_reactive_power,"l")
+  plot(datetime,Voltage,"l",lwd=0.7)
+  plot(datetime,Global_reactive_power,"l",lwd=0.7)
   })
 dev.off()
